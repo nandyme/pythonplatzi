@@ -1,13 +1,26 @@
 
 
-clients = ['sergio', 'jorge', 'ruben']
+clients = [
+	{
+		'name': 'Pablo',
+		'company': 'Google',
+		'email': 'pablo@google.com',
+		'position': 'Software Engineer'
+	},
+	{
+		'name': 'Ricardo',
+		'company': 'Facebook',
+		'email': 'ricardo@facebook.com',
+		'position': 'Data Engineer'
+	}
+	]
 
 
-def create_client(client_name):
+def create_client(client):
 	global clients
 	
-	if client_name not in clients:
-		clients.append(client_name)
+	if client not in clients:
+		clients.append(client)
 	else:
 		print('That client already is in clients list.')
 
@@ -75,8 +88,12 @@ def _yes_or_not():
 	return selection
 
 
-def _get_client_name():
-	return input('What is the client name? ')
+def _get_client_field(data):
+	field = None
+
+	while not field:
+		field = input('What is the client {}?'.format(data))
+	return field
 
 
 def _print_welcome():
@@ -101,8 +118,13 @@ if __name__ == '__main__':
 	command = command.upper()
 
 	if command == 'C':
-		client_name = _get_client_name()
-		create_client(client_name)
+		client = {
+							'name': _get_client_field('name'),
+							'company': _get_client_field('company'),
+							'email': _get_client_field('email'),
+							'position': _get_client_field('position')
+				}
+		create_client(client)
 		list_clients()
 	elif command == 'D':
 		delete_client(_get_client_name())
