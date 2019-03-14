@@ -1,27 +1,23 @@
 
 
-clients = 'sergio,jorge,ruben,'
+clients = ['sergio', 'jorge', 'ruben']
 
 
 def create_client(client_name):
 	global clients
 	
 	if client_name not in clients:
-		clients += client_name
-		_add_comma()
+		clients.append(client_name)
 	else:
 		print('That client already is in clients list.')
-
-
 
 
 def update_client(client_name):
 	global clients
 
-
 	if client_name in clients:
-		updated_client_name = input('What is the new name for the client? ')
-		clients = clients.replace(client_name + ',', updated_client_name + ',')
+		index = clients.index(client_name)
+		clients[index] = input('What is the new name for the client? ')
 	else:
 		_client_is_not_in_list(client_name)
 
@@ -30,7 +26,7 @@ def delete_client(client_name):
 	global clients
 
 	if client_name in clients:
-		clients = clients.replace(client_name + ',','')
+		clients.remove(client_name)
 	else:
 		_client_is_not_in_list()
 
@@ -55,10 +51,11 @@ def searc_client(client_name):
 		_client_is_not_in_list(client_name)
 
 
-def _add_comma():
+def list_clients():
 	global clients
 
-	clients += ','
+	for idx, client in enumerate(clients):
+		print('{}: {}'.format(idx, client))
 
 
 def _client_is_not_in_list(client_name):
@@ -77,14 +74,10 @@ def _yes_or_not():
 	selection = selection.upper()
 	return selection
 
+
 def _get_client_name():
 	return input('What is the client name? ')
 
-
-def list_clients():
-	global clients
-
-	print(clients)
 
 def _print_welcome():
 	print('WELCOME TO PLATZI VENTAS')
@@ -93,6 +86,7 @@ def _print_welcome():
 	print('[C]reate client')
 	_ask_for_modify_clients_list()
 	print('[S]earch client')
+	print('[L]ist clients')
 
 
 def _ask_for_modify_clients_list():
@@ -118,6 +112,8 @@ if __name__ == '__main__':
 		list_clients()
 	elif command == 'S':
 		searc_client(_get_client_name())
+		list_clients()
+	elif command == 'L':
 		list_clients()
 	else:
 		print('Invalid command.')
