@@ -13,6 +13,7 @@ def create_client(client_name):
 		print('That client already is in clients list.')
 
 
+yield
 
 
 def update_client(client_name):
@@ -32,27 +33,30 @@ def delete_client(client_name):
 	if client_name in clients:
 		clients = clients.replace(client_name + ',','')
 	else:
-		_client_is_not_in_list()
+		print('The client is not in list.')
 
 
 def searc_client(client_name):
 	global clients
 
-	if client_name in clients:
-		print('The client is in clients list.')
-		print('What would you like to do? ')
-		_ask_for_modify_clients_list()
-		print('[N]othing')
-		command = input()
-		command = command.upper()
-		if command == 'U' :
-			update_client(client_name)
-		elif command == 'D':
-			delete_client(client_name)
+	client_list = clients.split(',')
+
+	for client in client_list:
+		if client != client_name:
+			print('The client is in clients list.')
+			print('What would you like to do? ')
+			_ask_for_modify_clients_list()
+			print('[N]othing')
+			command = input()
+			command = command.upper()
+			if command == 'U' :
+				update_client(client_name)
+			elif command == 'D':
+				delete_client(client_name)
+			else:
+				print('Invalid command.')
 		else:
-			pass
-	else:
-		_client_is_not_in_list(client_name)
+			_client_is_not_in_list(client_name)
 
 
 def _add_comma():
@@ -78,8 +82,10 @@ def _yes_or_not():
 	return selection
 
 def _get_client_name():
-	return input('What is the client name? ')
-
+	client_name = None
+	while not client_name:
+		client_name = input('What is the client name? ')
+	return client_name
 
 def list_clients():
 	global clients
@@ -91,6 +97,7 @@ def _print_welcome():
 	print('*' * 50)
 	print('What would you like to do? ')
 	print('[C]reate client')
+	print('[L]ist clients')
 	_ask_for_modify_clients_list()
 	print('[S]earch client')
 
@@ -110,14 +117,16 @@ if __name__ == '__main__':
 		client_name = _get_client_name()
 		create_client(client_name)
 		list_clients()
+	elif command == 'L':
+		list_clients()
 	elif command == 'D':
 		delete_client(_get_client_name())
+		list_clients()
 	elif command == 'U':
 		update_client(_get_client_name())
+		list_clients()
 	elif command == 'S':
 		searc_client(_get_client_name())
+		list_clients()
 	else:
 		print('Invalid command.')
-
-	
-	list_clients()
