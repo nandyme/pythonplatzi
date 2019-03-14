@@ -112,12 +112,12 @@ if __name__ == '__main__':
 		list_clients()
 	elif command == 'D':
 		delete_client(_get_client_name())
+		list_clients()
 	elif command == 'U':
 		update_client(_get_client_name())
+		list_clients()
 	elif command == 'S':
 		searc_client(_get_client_name())
+		list_clients()
 	else:
 		print('Invalid command.')
-
-	
-	list_clients()
