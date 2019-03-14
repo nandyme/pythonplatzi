@@ -1,28 +1,42 @@
 
 
-clients = 'sergio,jorge,ruben,'
+clients = [
+	{
+		'name': 'Pablo',
+		'company': 'Google',
+		'email': 'pablo@google.com',
+		'position': 'Software Engineer'
+	},
+	{
+		'name': 'Ricardo',
+		'company': 'Facebook',
+		'email': 'ricardo@facebook.com',
+		'position': 'Data Engineer'
+	}
+	]
 
 
-def create_client(client_name):
+def create_client(client):
 	global clients
 	
-	if client_name not in clients:
-		clients += client_name
-		_add_comma()
+	if client not in clients:
+		clients.append(client)
 	else:
 		print('That client already is in clients list.')
 
 
+<<<<<<< HEAD
 yield
 
 
+=======
+>>>>>>> a51cfdbfca9516c3f65d38ca4d787ab842e2cd3d
 def update_client(client_name):
 	global clients
 
-
 	if client_name in clients:
-		updated_client_name = input('What is the new name for the client? ')
-		clients = clients.replace(client_name + ',', updated_client_name + ',')
+		index = clients.index(client_name)
+		clients[index] = input('What is the new name for the client? ')
 	else:
 		_client_is_not_in_list(client_name)
 
@@ -31,7 +45,7 @@ def delete_client(client_name):
 	global clients
 
 	if client_name in clients:
-		clients = clients.replace(client_name + ',','')
+		clients.remove(client_name)
 	else:
 		print('The client is not in list.')
 
@@ -59,10 +73,11 @@ def searc_client(client_name):
 			_client_is_not_in_list(client_name)
 
 
-def _add_comma():
+def list_clients():
 	global clients
 
-	clients += ','
+	for idx, client in enumerate(clients):
+		print('{}: {}'.format(idx, client))
 
 
 def _client_is_not_in_list(client_name):
@@ -81,16 +96,22 @@ def _yes_or_not():
 	selection = selection.upper()
 	return selection
 
+<<<<<<< HEAD
 def _get_client_name():
 	client_name = None
 	while not client_name:
 		client_name = input('What is the client name? ')
 	return client_name
+=======
 
-def list_clients():
-	global clients
+def _get_client_field(data):
+	field = None
+>>>>>>> a51cfdbfca9516c3f65d38ca4d787ab842e2cd3d
 
-	print(clients)
+	while not field:
+		field = input('What is the client {}?'.format(data))
+	return field
+
 
 def _print_welcome():
 	print('WELCOME TO PLATZI VENTAS')
@@ -100,6 +121,7 @@ def _print_welcome():
 	print('[L]ist clients')
 	_ask_for_modify_clients_list()
 	print('[S]earch client')
+	print('[L]ist clients')
 
 
 def _ask_for_modify_clients_list():
@@ -114,8 +136,13 @@ if __name__ == '__main__':
 	command = command.upper()
 
 	if command == 'C':
-		client_name = _get_client_name()
-		create_client(client_name)
+		client = {
+							'name': _get_client_field('name'),
+							'company': _get_client_field('company'),
+							'email': _get_client_field('email'),
+							'position': _get_client_field('position')
+				}
+		create_client(client)
 		list_clients()
 	elif command == 'L':
 		list_clients()
@@ -128,5 +155,10 @@ if __name__ == '__main__':
 	elif command == 'S':
 		searc_client(_get_client_name())
 		list_clients()
+<<<<<<< HEAD
+=======
+	elif command == 'L':
+		list_clients()
+>>>>>>> a51cfdbfca9516c3f65d38ca4d787ab842e2cd3d
 	else:
 		print('Invalid command.')
