@@ -1,6 +1,7 @@
 
 
 clients = [
+	#this is the principal list
 	{
 		'name': 'Pablo',
 		'company': 'Google',
@@ -17,6 +18,7 @@ clients = [
 
 
 def create_client(client):
+	#function called to append a client's dictionary to the principal list
 	global clients
 	
 	if client not in clients:
@@ -26,6 +28,7 @@ def create_client(client):
 
 
 def update_client(client_name):
+	#function called to modify one client's data
 	global clients
 
 	if client_name in clients:
@@ -36,6 +39,7 @@ def update_client(client_name):
 
 
 def delete_client(client_name):
+	#function called to delete a client
 	global clients
 
 	if client_name in clients:
@@ -45,6 +49,7 @@ def delete_client(client_name):
 
 
 def searc_client(client_name):
+	#function called to search a client in the principal list
 	global clients
 
 	if client_name in clients:
@@ -65,6 +70,7 @@ def searc_client(client_name):
 
 
 def list_clients():
+	#function called to print all the clients in the principal list
 	global clients
 
 	for idx, client in enumerate(clients):
@@ -72,6 +78,8 @@ def list_clients():
 
 
 def _client_is_not_in_list(client_name):
+	#function called when the client's dictionary is not in list, to ask if you want to do
+	#something with the dictionary received
 	print('Client is not in clients list.')
 	print('Do you want to add it now? ')
 	selection = _yes_or_not()
@@ -89,6 +97,7 @@ def _yes_or_not():
 
 
 def _get_client_field(data):
+	#returns a data to complete a the field in the dictionary below
 	field = None
 
 	while not field:
@@ -97,6 +106,7 @@ def _get_client_field(data):
 
 
 def _print_welcome():
+	#shows to the user all the options he have
 	print('WELCOME TO PLATZI VENTAS')
 	print('*' * 50)
 	print('What would you like to do? ')
@@ -107,6 +117,7 @@ def _print_welcome():
 
 
 def _ask_for_modify_clients_list():
+	#part of the options that will showed in _print_welcome
 	print('[U]pdate client')
 	print('[D]elete client')
 
