@@ -27,6 +27,12 @@ def create_client(client):
 		print('That client already is in clients list.')
 
 
+<<<<<<< HEAD
+yield
+
+
+=======
+>>>>>>> a51cfdbfca9516c3f65d38ca4d787ab842e2cd3d
 def update_client(client_name):
 	#function called to modify one client's data
 	global clients
@@ -45,28 +51,31 @@ def delete_client(client_name):
 	if client_name in clients:
 		clients.remove(client_name)
 	else:
-		_client_is_not_in_list()
+		print('The client is not in list.')
 
 
 def searc_client(client_name):
 	#function called to search a client in the principal list
 	global clients
 
-	if client_name in clients:
-		print('The client is in clients list.')
-		print('What would you like to do? ')
-		_ask_for_modify_clients_list()
-		print('[N]othing')
-		command = input()
-		command = command.upper()
-		if command == 'U' :
-			update_client(client_name)
-		elif command == 'D':
-			delete_client(client_name)
+	client_list = clients.split(',')
+
+	for client in client_list:
+		if client != client_name:
+			print('The client is in clients list.')
+			print('What would you like to do? ')
+			_ask_for_modify_clients_list()
+			print('[N]othing')
+			command = input()
+			command = command.upper()
+			if command == 'U' :
+				update_client(client_name)
+			elif command == 'D':
+				delete_client(client_name)
+			else:
+				print('Invalid command.')
 		else:
-			pass
-	else:
-		_client_is_not_in_list(client_name)
+			_client_is_not_in_list(client_name)
 
 
 def list_clients():
@@ -95,10 +104,18 @@ def _yes_or_not():
 	selection = selection.upper()
 	return selection
 
+<<<<<<< HEAD
+def _get_client_name():
+	client_name = None
+	while not client_name:
+		client_name = input('What is the client name? ')
+	return client_name
+=======
 
 def _get_client_field(data):
 	#returns a data to complete a the field in the dictionary below
 	field = None
+>>>>>>> a51cfdbfca9516c3f65d38ca4d787ab842e2cd3d
 
 	while not field:
 		field = input('What is the client {}?'.format(data))
@@ -111,6 +128,7 @@ def _print_welcome():
 	print('*' * 50)
 	print('What would you like to do? ')
 	print('[C]reate client')
+	print('[L]ist clients')
 	_ask_for_modify_clients_list()
 	print('[S]earch client')
 	print('[L]ist clients')
@@ -137,6 +155,8 @@ if __name__ == '__main__':
 				}
 		create_client(client)
 		list_clients()
+	elif command == 'L':
+		list_clients()
 	elif command == 'D':
 		delete_client(_get_client_name())
 		list_clients()
@@ -146,7 +166,10 @@ if __name__ == '__main__':
 	elif command == 'S':
 		searc_client(_get_client_name())
 		list_clients()
+<<<<<<< HEAD
+=======
 	elif command == 'L':
 		list_clients()
+>>>>>>> a51cfdbfca9516c3f65d38ca4d787ab842e2cd3d
 	else:
 		print('Invalid command.')
