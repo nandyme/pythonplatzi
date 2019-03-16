@@ -1,4 +1,4 @@
-
+import os
 
 clients = [
 	#this is the principal list
@@ -27,15 +27,26 @@ def create_client(client):
 		print('That client already is in clients list.')
 
 
-def update_client(client_name):
+def update_client(uname):
 	#function called to modify one client's data
 	global clients
 
-	if client_name in clients:
-		index = clients.index(client_name)
-		clients[index] = input('What is the new name for the client? ')
-	else:
-		_client_is_not_in_list(client_name)
+	for client in clients:
+		uname = uname.capitalize()
+		if client['name'] == uname:
+			ukey = input('What to you want to update from this client?\n(Name, Company, Email, Position): ')
+			ukey.lower()
+			client[ukey] = (input('Ingress the new {} of the client: '.format(ukey))).capitalize()
+			client['email'] = client['email'].lower()
+			break
+			"""if ukey != 'email':
+													client[ukey] = (input('Ingress the new {} of the client: '.format(ukey))).capitalize()
+													break
+												else:
+													client[ukey] = input('Ingress the new {} of the client: '.format(ukey))
+													break"""
+		else:
+			print('The client is not in the clients list.')
 
 
 def delete_client(client_name):
@@ -77,10 +88,15 @@ def list_clients():
 	global clients
 
 	for idx, client in enumerate(clients):
-		print('{}: {}'.format(idx, client))
+		print('{uid} | {name} | {company} | {email} | {position}'.format(
+			uid = idx ,
+			name = client['name'],
+			company = client['company'],
+			email = client['email'],
+			position = client['position']))
 
 
-def _client_is_not_in_list(client_name):
+"""def _client_is_not_in_list(client_name):
 	#function called when the client's dictionary is not in list, to ask if you want to do
 	#something with the dictionary received
 	print('Client is not in clients list.')
@@ -96,14 +112,7 @@ def _yes_or_not():
 	#returns a selection command Y or N in a string
 	selection = input('[Y]es or [N]ot: ')
 	selection = selection.upper()
-	return selection
-
-
-def _get_client_name():
-	client_name = None
-	while not client_name:
-		client_name = input('What is the client name? ')
-	return client_name
+	return selection"""
 
 
 def _get_client_field(data):
@@ -151,15 +160,18 @@ if __name__ == '__main__':
 	elif command == 'L':
 		list_clients()
 	elif command == 'D':
-		delete_client(_get_client_name())
+		delete_client(_get_client_field())
 		list_clients()
 	elif command == 'U':
-		update_client(_get_client_name())
+		uname = input('Ingress the name of the client that you want to update: ')
+		update_client(uname)
 		list_clients()
 	elif command == 'S':
-		searc_client(_get_client_name())
+		searc_client(_get_client_field())
 		list_clients()
 	elif command == 'L':
 		list_clients()
 	else:
 		print('Invalid command.')
+
+	os.system('pause')
