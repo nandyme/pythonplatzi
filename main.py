@@ -27,12 +27,6 @@ def create_client(client):
 		print('That client already is in clients list.')
 
 
-<<<<<<< HEAD
-yield
-
-
-=======
->>>>>>> a51cfdbfca9516c3f65d38ca4d787ab842e2cd3d
 def update_client(client_name):
 	#function called to modify one client's data
 	global clients
@@ -104,18 +98,17 @@ def _yes_or_not():
 	selection = selection.upper()
 	return selection
 
-<<<<<<< HEAD
+
 def _get_client_name():
 	client_name = None
 	while not client_name:
 		client_name = input('What is the client name? ')
 	return client_name
-=======
+
 
 def _get_client_field(data):
 	#returns a data to complete a the field in the dictionary below
 	field = None
->>>>>>> a51cfdbfca9516c3f65d38ca4d787ab842e2cd3d
 
 	while not field:
 		field = input('What is the client {}?'.format(data))
@@ -166,10 +159,7 @@ if __name__ == '__main__':
 	elif command == 'S':
 		searc_client(_get_client_name())
 		list_clients()
-<<<<<<< HEAD
-=======
 	elif command == 'L':
 		list_clients()
->>>>>>> a51cfdbfca9516c3f65d38ca4d787ab842e2cd3d
 	else:
 		print('Invalid command.')
