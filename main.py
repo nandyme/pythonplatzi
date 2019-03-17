@@ -49,24 +49,23 @@ def update_client(uname):
 			print('The client is not in the clients list.')
 
 
-def delete_client(client_name):
+def delete_client(uname):
 	#function called to delete a client
 	global clients
 
-	if client_name in clients:
-		clients.remove(client_name)
-	else:
-		print('The client is not in list.')
+	for client in clients:
+		if client['name'] == uname:
+			clients.remove(client)
+		else:
+			print('The client is not in list.')
 
 
-def searc_client(client_name):
+def searc_client(uname):
 	#function called to search a client in the principal list
 	global clients
 
-	client_list = clients.split(',')
-
-	for client in client_list:
-		if client != client_name:
+	for client in clients:
+		if client['name'] == uname:
 			print('The client is in clients list.')
 			print('What would you like to do? ')
 			_ask_for_modify_clients_list()
@@ -74,13 +73,13 @@ def searc_client(client_name):
 			command = input()
 			command = command.upper()
 			if command == 'U' :
-				update_client(client_name)
+				update_client(uname)
 			elif command == 'D':
-				delete_client(client_name)
+				delete_client(uname)
 			else:
 				print('Invalid command.')
 		else:
-			_client_is_not_in_list(client_name)
+			print('Client is not in list.')
 
 
 def list_clients():
@@ -89,30 +88,12 @@ def list_clients():
 
 	for idx, client in enumerate(clients):
 		print('{uid} | {name} | {company} | {email} | {position}'.format(
-			uid = idx ,
+			uid = idx,
 			name = client['name'],
 			company = client['company'],
 			email = client['email'],
 			position = client['position']))
 
-
-"""def _client_is_not_in_list(client_name):
-	#function called when the client's dictionary is not in list, to ask if you want to do
-	#something with the dictionary received
-	print('Client is not in clients list.')
-	print('Do you want to add it now? ')
-	selection = _yes_or_not()
-	if selection == 'Y':
-		create_client(client_name)
-	else:
-		pass
-
-
-def _yes_or_not():
-	#returns a selection command Y or N in a string
-	selection = input('[Y]es or [N]ot: ')
-	selection = selection.upper()
-	return selection"""
 
 
 def _get_client_field(data):
@@ -142,6 +123,10 @@ def _ask_for_modify_clients_list():
 	print('[D]elete client')
 
 
+def get_client_key(ukey):
+	return input('Ingress the name of the client that you want to '+ukey+': ')
+
+
 if __name__ == '__main__':
 	_print_welcome()
 
@@ -150,24 +135,23 @@ if __name__ == '__main__':
 
 	if command == 'C':
 		client = {
-							'name': _get_client_field('name'),
-							'company': _get_client_field('company'),
+							'name': _get_client_field('name').capitalize(),
+							'company': _get_client_field('company').capitalize(),
 							'email': _get_client_field('email'),
-							'position': _get_client_field('position')
+							'position': _get_client_field('position').capitalize()
 				}
 		create_client(client)
 		list_clients()
 	elif command == 'L':
 		list_clients()
 	elif command == 'D':
-		delete_client(_get_client_field())
+		delete_client(get_client_key('delete').capitalize())
 		list_clients()
 	elif command == 'U':
-		uname = input('Ingress the name of the client that you want to update: ')
-		update_client(uname)
+		update_client(get_client_key('update').capitalize())
 		list_clients()
 	elif command == 'S':
-		searc_client(_get_client_field())
+		searc_client(get_client_key('search').capitalize	())
 		list_clients()
 	elif command == 'L':
 		list_clients()
