@@ -1,10 +1,26 @@
-import os, csv
+import os
+import csv
 
+CLIENT_TABLE = '.clients.csv'
+CLIENT_SCHEMA = ['name', 'company', 'email', 'position']
 clients =[]
 
-def _initialize_client_from_storage():
+def _initialize_clients_from_storage():
 	with open(CLIENT_TABLE, mode = 'r') as f:
-		reader = 
+		reader = csv.DictReader(f, fieldnames=CLIENT_SCHEMA)
+
+		for row in reader:
+			clients.append(row)
+
+
+def _save_clients_to_storage():
+	tmp_table_name = '{}.tmp'.format(CLIENT_TABLE)
+	with open(tmp_table_name, mode = 'w') as f:
+		writer = csv.DictWriter(f, fieldnames=CLIENT_SCHEMA)
+		writer.writerows(clients)
+
+	os.remove(CLIENT_TABLE)
+	os.rename(tmp_table_name, CLIENT_TABLE) 
 
 
 def create_client(client):
@@ -118,6 +134,7 @@ def get_client_key(ukey):
 
 
 if __name__ == '__main__':
+	_initialize_clients_from_storage()
 	_print_welcome()
 
 	command = input()
@@ -131,21 +148,16 @@ if __name__ == '__main__':
 							'position': _get_client_field('position').capitalize()
 				}
 		create_client(client)
-		list_clients()
 	elif command == 'L':
 		list_clients()
 	elif command == 'D':
 		delete_client(get_client_key('delete').capitalize())
-		list_clients()
 	elif command == 'U':
 		update_client(get_client_key('update').capitalize())
-		list_clients()
 	elif command == 'S':
-		searc_client(get_client_key('search').capitalize	())
-		list_clients()
-	elif command == 'L':
-		list_clients()
+		searc_client(get_client_key('search').capitalize())
 	else:
 		print('Invalid command.')
 
-	os.system('pause')
+
+	_save_clients_to_storage()
