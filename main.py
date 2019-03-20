@@ -1,20 +1,10 @@
-import os
+import os, csv
 
-clients = [
-	#this is the principal list
-	{
-		'name': 'Pablo',
-		'company': 'Google',
-		'email': 'pablo@google.com',
-		'position': 'Software Engineer'
-	},
-	{
-		'name': 'Ricardo',
-		'company': 'Facebook',
-		'email': 'ricardo@facebook.com',
-		'position': 'Data Engineer'
-	}
-	]
+clients =[]
+
+def _initialize_client_from_storage():
+	with open(CLIENT_TABLE, mode = 'r') as f:
+		reader = 
 
 
 def create_client(client):
