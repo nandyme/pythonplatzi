@@ -24,54 +24,68 @@ def _save_clients_to_storage():
 
 
 def create_client(client):
-	#function called to append a client's dictionary to the principal list
+	#function called to append a client's dictionary to the principal list.
 	global clients
+	switch = True #this variable will be changed for False if the client is already in the list.
 	
-	if client not in clients:
+	for i in clients:
+		if i['name'] == client['name']:
+			switch = False
+		else:
+			pass
+
+	if switch:
 		clients.append(client)
+		print('Client created successfully')
 	else:
-		print('That client already is in clients list.')
+		print('That client can\'t be created.\nIt\'s already in the list.')
 
 
 def update_client(uname):
-	#function called to modify one client's data
+	#function called to modify one client's data.
 	global clients
+	switch = False #this variable is kept false if the client is not in the list.
 
 	for client in clients:
 		uname = uname.capitalize()
 		if client['name'] == uname:
-			ukey = input('What to you want to update from this client?\n(Name, Company, Email, Position): ')
+			switch = True #comes to true if the client is in the list.
+			ukey = input('What do you want to update from this client?\n(Name, Company, Email, Position): ')
 			ukey.lower()
 			client[ukey] = (input('Ingress the new {} of the client: '.format(ukey))).capitalize()
 			client['email'] = client['email'].lower()
+			print('Client updated successfully')
 			break
-			"""if ukey != 'email':
-													client[ukey] = (input('Ingress the new {} of the client: '.format(ukey))).capitalize()
-													break
-												else:
-													client[ukey] = input('Ingress the new {} of the client: '.format(ukey))
-													break"""
 		else:
+			pass
+	if not switch:
 			print('The client is not in the clients list.')
 
 
 def delete_client(uname):
-	#function called to delete a client
+	#function called to delete a client.
 	global clients
+	switch = False
 
 	for client in clients:
 		if client['name'] == uname:
+			switch = True
 			clients.remove(client)
 		else:
-			print('The client is not in list.')
+			pass
 
+	if not switch:
+		print('The client is not in list.')
 
 def searc_client(uname):
-	#function called to search a client in the principal list
+	#function called to search a client in the principal list.
 	global clients
+	uname = uname.capitalize()
+	switch = False #this variable is kept false if the client is not in the list.
 
 	for client in clients:
 		if client['name'] == uname:
+			switch = True #comes to true if the client is in the list.
 			print('The client is in clients list.')
 			print('What would you like to do? ')
 			_ask_for_modify_clients_list()
@@ -85,11 +99,13 @@ def searc_client(uname):
 			else:
 				print('Invalid command.')
 		else:
-			print('Client is not in list.')
+			pass
+	if not switch:
+		print('The client is not in list.')
 
 
 def list_clients():
-	#function called to print all the clients in the principal list
+	#function called to print all the clients in the principal list.
 	global clients
 
 	for idx, client in enumerate(clients):
@@ -120,7 +136,6 @@ def _print_welcome():
 	print('[L]ist clients')
 	_ask_for_modify_clients_list()
 	print('[S]earch client')
-	print('[L]ist clients')
 
 
 def _ask_for_modify_clients_list():
@@ -130,6 +145,7 @@ def _ask_for_modify_clients_list():
 
 
 def get_client_key(ukey):
+	os.system('cls')
 	return input('Ingress the name of the client that you want to '+ukey+': ')
 
 
@@ -141,6 +157,7 @@ if __name__ == '__main__':
 	command = command.upper()
 
 	if command == 'C':
+		os.system('cls')
 		client = {
 							'name': _get_client_field('name').capitalize(),
 							'company': _get_client_field('company').capitalize(),
@@ -149,6 +166,7 @@ if __name__ == '__main__':
 				}
 		create_client(client)
 	elif command == 'L':
+		os.system('cls')
 		list_clients()
 	elif command == 'D':
 		delete_client(get_client_key('delete').capitalize())
@@ -157,7 +175,12 @@ if __name__ == '__main__':
 	elif command == 'S':
 		searc_client(get_client_key('search').capitalize())
 	else:
+		os.system('cls')
 		print('Invalid command.')
 
 
 	_save_clients_to_storage()
+	print('')
+	print('')
+	print('')
+	os.system('pause')
