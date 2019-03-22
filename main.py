@@ -36,9 +36,11 @@ def create_client(client):
 
 	if switch:
 		clients.append(client)
-		print('Client created successfully')
+		os.system('cls')
+		_print_results('The client {} has been created successfully'.format(client['name']))
 	else:
-		print('That client can\'t be created.\nIt\'s already in the list.')
+		os.system('cls')
+		_print_results('That client can\'t be created.\nIt\'s already in the list.')
 
 
 def update_client(uname):
@@ -54,12 +56,14 @@ def update_client(uname):
 			ukey.lower()
 			client[ukey] = (input('Ingress the new {} of the client: '.format(ukey))).capitalize()
 			client['email'] = client['email'].lower()
-			print('Client updated successfully')
+			os.system('cls')
+			_print_results('The client {} has been updated successfully'.format(uname))
 			break
 		else:
 			pass
 	if not switch:
-			print('The client is not in the clients list.')
+			os.system('cls')
+			_print_results('The client is not in the clients list.')
 
 
 def delete_client(uname):
@@ -71,11 +75,14 @@ def delete_client(uname):
 		if client['name'] == uname:
 			switch = True
 			clients.remove(client)
+			os.system('cls')
+			_print_results('The client {} has been deleted successfully.'.format(client['name']))
 		else:
 			pass
 
 	if not switch:
-		print('The client is not in list.')
+		os.system('cls')
+		_print_results('The client is not in list.')
 
 def searc_client(uname):
 	#function called to search a client in the principal list.
@@ -97,11 +104,11 @@ def searc_client(uname):
 			elif command == 'D':
 				delete_client(uname)
 			else:
-				print('Invalid command.')
+				_print_results('Invalid command.')
 		else:
 			pass
 	if not switch:
-		print('The client is not in list.')
+		_print_results('The client is not in list.')
 
 
 def list_clients():
@@ -125,6 +132,14 @@ def _get_client_field(data):
 	while not field:
 		field = input('What is the client {}?'.format(data))
 	return field
+
+
+def _print_results(results):
+	#prints the final results prettier ;)
+	print('*'*70)
+	print(' '*(35-(len(results)//2))+results+' '*(35-(len(results)//2)))
+	print('*'*70)
+
 
 
 def _print_welcome():
