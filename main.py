@@ -84,7 +84,7 @@ def delete_client(uname):
 		os.system('cls')
 		_print_results('The client is not in list.')
 
-def searc_client(uname):
+def search_client(uname):
 	#function called to search a client in the principal list.
 	global clients
 	uname = uname.capitalize()
@@ -188,7 +188,7 @@ if __name__ == '__main__':
 	elif command == 'U':
 		update_client(get_client_key('update').capitalize())
 	elif command == 'S':
-		searc_client(get_client_key('search').capitalize())
+		search_client(get_client_key('search').capitalize())
 	else:
 		os.system('cls')
 		print('Invalid command.')
