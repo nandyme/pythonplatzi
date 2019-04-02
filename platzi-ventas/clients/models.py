@@ -1,4 +1,4 @@
-
+import uuid
 
 
 class Client:
@@ -17,4 +17,4 @@ class Client:
 
 	@staticmethod
 	def schema():
-		return [self, 'name', 'company', 'email', 'position', 'uid']
+		return ['name', 'company', 'email', 'position', 'uid']
