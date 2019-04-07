@@ -20,4 +20,3 @@ class ClientService:
 			reader = csv.DictReader(f, fieldnames = Client.schema())
 
 			return list(reader)
-	
